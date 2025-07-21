@@ -10,10 +10,11 @@
 
     The mixin can be inherited by any model to enable multi-search functionality.
     """,
-    'author': '	SEATEK SERVICES & TECHNOLOGY DEVELOPMENT COMPANY LIMITED',
+    'author': 'SeaTek',
     'website': 'https://seateklab.vn/',
     'depends': ['base','web'],
     'data': [],
+    "images": ["static/description/icon.png"],
     'installable': True,
     'auto_install': False,
     'application': False,
