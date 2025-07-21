@@ -11,6 +11,7 @@
     The mixin can be inherited by any model to enable multi-search functionality.
     """,
     'author': 'SeaTek',
+    'license': 'LGPL-3',
     'website': 'https://seateklab.vn/',
     'depends': ['base','web'],
     'data': [],
