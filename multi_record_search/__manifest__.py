@@ -1,5 +1,5 @@
 {
-    'name': 'Sea Multi Search',
+    'name': 'Multi Record Search',
     'version': '13.0.1.0.0',
     'category': 'Tools',
     'summary': 'Multi Search Mixin for Odoo Models',
