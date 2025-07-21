@@ -14,7 +14,7 @@
     'website': 'https://seateklab.vn/',
     'depends': ['base','web'],
     'data': [],
-    "images": ["static/description/icon.png"],
+    "images": ["static/description/banner.png"],
     'installable': True,
     'auto_install': False,
     'application': False,
