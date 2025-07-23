@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Multi-Search for Odoo - Advanced Search Enhancement</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        .syntax-highlight {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .screenshot-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .screenshot-container img {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .benefit-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .version-badge {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0 10px;
+        }
+
+        /* Enhanced Image Gallery with CSS-only functionality */
+        .image-gallery {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            min-height: 500px;
+        }
+
+        .gallery-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            background-color: #f8f9fa;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* CSS-only navigation using radio buttons */
+        .gallery-nav {
+            display: none;
+        }
+
+        /* Dot Controls - moved to the right */
+        .gallery-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .gallery-control {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            border: 2px solid white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .gallery-control:hover {
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        /* Show first slide by default */
+        .gallery-slide:first-child {
+            opacity: 1;
+        }
+
+        /* CSS-only slide switching for Gallery 1 (3 slides) */
+        .gallery-1 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-1 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide:nth-child(1) {
+            opacity: 1;
+        }
+        .gallery-1 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-1 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide:nth-child(2) {
+            opacity: 1;
+        }
+        .gallery-1 .gallery-nav:nth-child(3):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-1 .gallery-nav:nth-child(3):checked ~ .gallery-container .gallery-slide:nth-child(3) {
+            opacity: 1;
+        }
+
+
+        /* CSS-only slide switching for Gallery 2 (2 slides) */
+        .gallery-2 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-2 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide:nth-child(1) {
+            opacity: 1;
+        }
+        .gallery-2 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-2 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide:nth-child(2) {
+            opacity: 1;
+        }
+
+
+        /* CSS-only slide switching for Gallery 3 (4 slides) */
+        .gallery-3 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-3 .gallery-nav:nth-child(1):checked ~ .gallery-container .gallery-slide:nth-child(1) {
+            opacity: 1;
+        }
+        .gallery-3 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-3 .gallery-nav:nth-child(2):checked ~ .gallery-container .gallery-slide:nth-child(2) {
+            opacity: 1;
+        }
+        .gallery-3 .gallery-nav:nth-child(3):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-3 .gallery-nav:nth-child(3):checked ~ .gallery-container .gallery-slide:nth-child(3) {
+            opacity: 1;
+        }
+        .gallery-3 .gallery-nav:nth-child(4):checked ~ .gallery-container .gallery-slide {
+            opacity: 0;
+        }
+        .gallery-3 .gallery-nav:nth-child(4):checked ~ .gallery-container .gallery-slide:nth-child(4) {
+            opacity: 1;
+        }
+
+
+        /* Active dot indicators */
+        .gallery-1 .gallery-nav:nth-child(1):checked ~ .gallery-controls .gallery-control:nth-child(1),
+        .gallery-1 .gallery-nav:nth-child(2):checked ~ .gallery-controls .gallery-control:nth-child(2),
+        .gallery-1 .gallery-nav:nth-child(3):checked ~ .gallery-controls .gallery-control:nth-child(3),
+        .gallery-2 .gallery-nav:nth-child(1):checked ~ .gallery-controls .gallery-control:nth-child(1),
+        .gallery-2 .gallery-nav:nth-child(2):checked ~ .gallery-controls .gallery-control:nth-child(2),
+        .gallery-3 .gallery-nav:nth-child(1):checked ~ .gallery-controls .gallery-control:nth-child(1),
+        .gallery-3 .gallery-nav:nth-child(2):checked ~ .gallery-controls .gallery-control:nth-child(2),
+        .gallery-3 .gallery-nav:nth-child(3):checked ~ .gallery-controls .gallery-control:nth-child(3),
+        .gallery-3 .gallery-nav:nth-child(4):checked ~ .gallery-controls .gallery-control:nth-child(4) {
+            background-color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-container {
+                min-height: 300px;
+            }
+            .gallery-slide img {
+                max-height: 400px;
+            }
+            .gallery-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            .gallery-controls {
+                right: 20px;
+                bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Overview Section -->
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-4">🎯 Transform Your Search Experience</h2>
+                <p class="lead text-center">
+                    Boost your productivity with advanced multi-term search capabilities. Search for multiple items at once
+                    using simple syntax patterns that work across all Odoo models.
+                </p>
+            </div>
+        </div>
+
+        <!-- Main Demo Gallery -->
+        <div class="screenshot-container">
+            <h4>💡 Search Multiple Terms at Once</h4>
+            <div class="image-gallery gallery-1">
+                <input type="radio" name="gallery1" class="gallery-nav" id="gallery1-slide1" checked>
+                <input type="radio" name="gallery1" class="gallery-nav" id="gallery1-slide2">
+                <input type="radio" name="gallery1" class="gallery-nav" id="gallery1-slide3">
+
+                <div class="gallery-container">
+                    <div class="gallery-slide">
+                        <img src="images/Screenshot_16.png" alt="Step 1: Normal Search">
+                        <div class="gallery-caption">
+                            <h3>Step 1: Copy items you want to search in excel </h3>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/Screenshot_17.png" alt="Step 2: Multi-Search Syntax" style="width: 100%">
+                        <div class="gallery-caption">
+                            <h3>Step 2: Paste all items copied inside the curly braces {} and press Enter</h3>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/Screenshot_18.png" alt="Step 3: Enhanced Results" style="width: 100%">
+                        <div class="gallery-caption">
+                            <h3>Step 3: Enjoy the result ^^ !</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="gallery-controls">
+                    <label for="gallery1-slide1" class="gallery-control"></label>
+                    <label for="gallery1-slide2" class="gallery-control"></label>
+                    <label for="gallery1-slide3" class="gallery-control"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="text-center mb-4">✨ Key Features</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="feature-icon">🔍</div>
+                <h4>Universal Search</h4>
+                <p>Works on all Odoo models automatically - Products, Partners, Sales Orders, and more!</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="feature-icon">⚡</div>
+                <h4>Two Search Syntaxes</h4>
+                <p>Use curly braces <code>{item1 item2}</code> or square brackets <code>[item1, item2]</code> for flexible searching.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="feature-icon">🛡️</div>
+                <h4>Failsafe Design</h4>
+                <p>Automatically falls back to normal search if multi-search fails. No disruption to existing workflows.</p>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2>🔧 How It Works</h2>
+                <p>The module extends Odoo's base search functionality to recognize special syntax patterns:</p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>🔸 Curly Braces Syntax</h4>
+                        <div class="syntax-highlight">
+                            <strong>Search:</strong> {apple orange banana}<br>
+                            <strong>Result:</strong> Finds all records containing "apple" OR "orange" OR "banana"<br>
+                            <strong>Best for:</strong> IDs, codes, single words without spaces<br>
+                            <strong>Example:</strong> {P001 P002 P003}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>🔸 Square Brackets Syntax</h4>
+                        <div class="syntax-highlight">
+                            <strong>Search:</strong> [laptop HP, mouse ASUS, keyboard]<br>
+                            <strong>Result:</strong> Finds all records containing "laptop HP" OR "mouse ASUS" OR "keyboard"<br>
+                            <strong>Best for:</strong> Names, phrases, multi-word terms with spaces<br>
+                            <strong>Example:</strong> [John Smith, Jane Doe] or [New York, Los Angeles]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Syntax Comparison Gallery -->
+        <div class="screenshot-container">
+            <h4>📊 Search Syntax Comparison</h4>
+            <div class="image-gallery gallery-2">
+                <input type="radio" name="gallery2" class="gallery-nav" id="gallery2-slide1" checked>
+                <input type="radio" name="gallery2" class="gallery-nav" id="gallery2-slide2">
+
+                <div class="gallery-container">
+                    <div class="gallery-slide">
+                        <img src="images/compare_1.png" alt="Curly Braces Syntax" style="width: 100%">
+                        <div class="gallery-caption">
+                            <h5>Curly Braces Syntax</h5>
+                            <p>Use {item1 item2 item3} for space-separated terms</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="images/compare_2.png" alt="Square Brackets Syntax" style="width: 100%">
+                        <div class="gallery-caption">
+                            <h5>Square Brackets Syntax</h5>
+                            <p>Use [item1, item2, item3] for comma-separated terms</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-controls">
+                    <label for="gallery2-slide1" class="gallery-control"></label>
+                    <label for="gallery2-slide2" class="gallery-control"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>📧 Direct Support</h4>
+                        <p>Please contact us by email at odoo@seatek.vn for further information or support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
